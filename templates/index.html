@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StockKnap | Intelligent Knapsack Inventory Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- Atmospheric Light Glow & Geometric Grid Background (Inspired by Rationale theme) -->
+<div class="bg-ambient">
+  <div class="bg-grid"></div>
+  <div class="bg-glow-orb"></div>
+  <div class="bg-glow-bottom"></div>
+</div>
+
+<div class="app-layout">
+
+  <!-- ===================== TOP FLOATING NAVBAR ===================== -->
+  <header class="navbar-wrapper">
+    <nav class="navbar" id="main-nav">
+      <!-- Brand Logo & Title -->
+      <a href="#home" class="nav-brand" data-page="home">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/>
+            <path d="M3 8l9 5 9-5M12 13v8"/>
+          </svg>
+        </div>
+        <span class="brand-title">StockKnap</span>
+      </a>
+
+      <!-- Clean Single-Line Navigation Links (No Icons) -->
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="#home" class="nav-link" data-page="home">Home</a></li>
+        <li><a href="#inventory" class="nav-link" data-page="inventory">Inventory</a></li>
+        <li><a href="#optimize" class="nav-link" data-page="optimize">Optimize</a></li>
+        <li><a href="#compare" class="nav-link" data-page="compare">Compare</a></li>
+        <li><a href="#benchmark" class="nav-link" data-page="benchmark">Benchmark</a></li>
+        <li><a href="#theory" class="nav-link" data-page="theory">Theory</a></li>
+        <li><a href="#about" class="nav-link" data-page="about">About</a></li>
+      </ul>
+
+      <!-- Action: Warehouse Capacity Pill -->
+      <div class="nav-actions">
+        <div class="nav-capacity-pill" title="Warehouse storage capacity in kilograms">
+          <label for="capacity">Capacity</label>
+          <input type="number" id="capacity" min="1" step="1" value="50" inputmode="numeric">
+          <span>kg</span>
+        </div>
+        <button class="nav-toggle-btn" id="mobile-toggle" aria-label="Toggle Navigation">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===================== MAIN CONTENT WRAPPER ===================== -->
+  <main class="main-wrapper">
+
+    <!-- ================= 1. HOME / HERO PAGE ================= -->
+    <section class="page-section active" id="page-home">
+      <div class="hero-container">
+        <!-- Circular Node Ribbon (Mirrors user photo style) -->
+        <div class="hero-node-ribbon">
+          <div class="hero-node" title="Ratio-based Greedy">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="hero-node" title="Dynamic Programming Optimal Substructure">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>
+          </div>
+          <div class="hero-node" title="Optimal Guarantee">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+        </div>
+
+        <h1 class="hero-title">
+          Maximise Warehouse Profit <br><span class="glow-text">Through Knapsack Logic</span>
+        </h1>
+        <p class="hero-subtitle">
+          Explore algorithmic decision-making: compare greedy heuristics with Dynamic Programming optimal substructure across customizable warehouse capacities.
+        </p>
+
+        <!-- Search Bar Capsule (Inspired by screenshot) -->
+        <form class="hero-search-capsule" id="hero-quick-form">
+          <input type="text" id="hero-search-input" placeholder="Quick search product, category, or knapsack strategy...">
+          <button type="submit">
+            Explore
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+
+        <!-- Quick navigation cards -->
+        <div class="hero-feature-cards">
+          <a href="#inventory" class="feature-card" data-page="inventory">
+            <div class="feature-icon-badge">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <h3>Inventory Catalog</h3>
+            <p>Manage product weights, valuations, and real-time density ratio (profit per kg) with automatic sorting.</p>
+            <div class="card-cta">Configure items &rarr;</div>
+          </a>
+
+          <a href="#optimize" class="feature-card" data-page="optimize">
+            <div class="feature-icon-badge">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <h3>Optimization Engine</h3>
+            <p>Run 0/1 Dynamic Programming or Greedy algorithms. View step-by-step backtrack paths and state tables.</p>
+            <div class="card-cta">Run solver &rarr;</div>
+          </a>
+
+          <a href="#compare" class="feature-card" data-page="compare">
+            <div class="feature-icon-badge">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+            </div>
+            <h3>Comparative Matrix</h3>
+            <p>Direct side-by-side breakdown of Fractional vs DP 0/1 vs Heuristic Greedy with decision disagreement heatmaps.</p>
+            <div class="card-cta">Compare models &rarr;</div>
+          </a>
+
+          <a href="#history" class="feature-card" data-page="history">
+            <div class="feature-icon-badge">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>
+            </div>
+            <h3>Run Logs &amp; History</h3>
+            <p>Review and audit all archived solver results, time-stamped parameters, and comparative DP yields.</p>
+            <div class="card-cta">View history &rarr;</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. INVENTORY PAGE ================= -->
+    <section class="page-section" id="page-inventory">
+      <div class="section-header">
+        <div>
+          <h1>Inventory Catalog</h1>
+          <p id="inv-capacity-hint">Configure available stock, package weights, and market profit values.</p>
+        </div>
+      </div>
+
+      <div class="stat-grid" id="inv-stats"></div>
+
+      <!-- Add Product Card -->
+      <div class="card">
+        <div class="card-head">
+          <h2>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Register New Stock Item
+          </h2>
+        </div>
+        <form id="product-form" class="form-row" autocomplete="off">
+          <div class="field grow">
+            <label for="p-name">Product Name</label>
+            <input id="p-name" required maxlength="60" placeholder="e.g. Solar Inverters, Laptop Crates">
+          </div>
+          <div class="field">
+            <label for="p-category">Category</label>
+            <input id="p-category" list="category-list" maxlength="30" placeholder="Electronics">
+            <datalist id="category-list"></datalist>
+          </div>
+          <div class="field narrow">
+            <label for="p-weight">Weight (kg)</label>
+            <input id="p-weight" type="number" min="1" step="1" required placeholder="10">
+          </div>
+          <div class="field narrow">
+            <label for="p-profit">Profit (<span class="cur"></span>)</label>
+            <input id="p-profit" type="number" min="0.01" step="any" required placeholder="500">
+          </div>
+          <button class="btn btn-primary" type="submit">
+            Add to Warehouse
+          </button>
+        </form>
+        <p class="note">Dynamic Programming requires integer weights as table column indices.</p>
+      </div>
+
+      <!-- Inventory Table Card -->
+      <div class="card">
+        <div class="card-head">
+          <h2>Current Stock Items <span class="count-pill" id="inv-count">0</span></h2>
+          <div class="actions">
+            <input type="search" id="search" placeholder="Search by name or category…" class="search">
+            <button class="btn btn-ghost btn-sm" id="btn-samples" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Load Samples
+            </button>
+            <button class="btn btn-ghost btn-sm btn-danger-text" id="btn-clear" type="button">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+              Clear Catalog
+            </button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="table" id="product-table">
+            <thead>
+              <tr>
+                <th data-sort="id">#</th>
+                <th data-sort="name">Product</th>
+                <th data-sort="category">Category</th>
+                <th data-sort="weight" class="num">Weight</th>
+                <th data-sort="profit" class="num">Profit</th>
+                <th data-sort="ratio" class="num">Profit / kg</th>
+                <th class="num">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="product-body"></tbody>
+          </table>
+        </div>
+        <div class="empty" id="inv-empty" hidden>
+          <strong>No products in inventory yet.</strong>
+          <span>Add products above or load the sample data set.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. OPTIMIZE PAGE ================= -->
+    <section class="page-section" id="page-optimize">
+      <div class="section-header">
+        <div>
+          <h1>Optimization Engine</h1>
+          <p id="optimize-hint">Select a strategy and maximize returns against warehouse constraints.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>1. Select Knapsack Strategy</h2></div>
+        <div class="algo-cards" id="algo-options">
+          <label class="algo-card" data-algo="fractional">
+            <input type="radio" name="algo" value="fractional">
+            <span class="algo-dot" style="background:var(--c-frac)"></span>
+            <strong>Greedy &middot; Fractional Knapsack</strong>
+            <p>Sorts by profit/weight density. Takes whole items, then splits the final fractional segment. Divisible items.</p>
+            <span class="tag">O(n log n)</span><span class="tag tag-soft">Optimal (Fractional)</span>
+          </label>
+          <label class="algo-card" data-algo="dp">
+            <input type="radio" name="algo" value="dp" checked>
+            <span class="algo-dot" style="background:var(--c-dp)"></span>
+            <strong>Dynamic Programming &middot; 0/1 Knapsack</strong>
+            <p>Constructs an optimal substructure lookup table. Items are taken whole or skipped. Indivisible stock.</p>
+            <span class="tag">O(n &middot; W)</span><span class="tag tag-soft">Optimal (0/1)</span>
+          </label>
+          <label class="algo-card" data-algo="greedy_whole">
+            <input type="radio" name="algo" value="greedy_whole">
+            <span class="algo-dot" style="background:var(--c-whole)"></span>
+            <strong>Greedy &middot; Whole Items Heuristic</strong>
+            <p>Sorts by density ratio but skips items that exceed remaining capacity. Fast approximation, not optimal.</p>
+            <span class="tag">O(n log n)</span><span class="tag tag-soft">Heuristic</span>
+          </label>
+        </div>
+        <div class="run-row">
+          <button class="btn btn-primary" id="btn-optimize">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Compute Optimal Selection
+          </button>
+        </div>
+      </div>
+
+      <div id="optimize-result"></div>
+    </section>
+
+    <!-- ================= 4. COMPARE PAGE ================= -->
+    <section class="page-section" id="page-compare">
+      <div class="section-header">
+        <div>
+          <h1>Comparative Matrix</h1>
+          <p id="compare-hint">Benchmark all three algorithmic paradigms on your current catalog.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>Greedy vs Dynamic Programming Benchmarking</h2></div>
+        <p class="lead">Executes Fractional Greedy, 0/1 DP, and Heuristic Greedy concurrently. Generates profitability disparity, capacity utilization, execution latency, and per-item decision tracking.</p>
+        <div class="run-row">
+          <button class="btn btn-primary" id="btn-compare">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 20V10M10 20V4M16 20v-7"/></svg>
+            Execute Comparative Analysis
+          </button>
+          <a href="#history" class="btn btn-ghost" data-page="history">
+            View Run History
+          </a>
+        </div>
+      </div>
+      <div id="compare-result"></div>
+    </section>
+
+    <!-- ================= 5. BENCHMARK PAGE ================= -->
+    <section class="page-section" id="page-benchmark">
+      <div class="section-header">
+        <div>
+          <h1>Scalability Benchmark</h1>
+          <p>Analyze how O(n log n) and pseudo-polynomial O(n·W) scale under heavy workloads.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>Synthesized Dataset Scaling</h2></div>
+        <p class="lead">Generates randomly distributed item weights and profits across growing dataset sizes (up to 500 items). Tests CPU execution time and algorithmic overhead.</p>
+        <div class="form-row">
+          <div class="field">
+            <label for="bench-preset">Problem Sizes (Item Count n)</label>
+            <select id="bench-preset">
+              <option value="10,25,50,100,200">Small: 10, 25, 50, 100, 200 items</option>
+              <option value="10,50,100,200,300,400">Medium: Up to 400 items</option>
+              <option value="25,100,200,300,400,500">Large: Up to 500 items</option>
+            </select>
+          </div>
+          <div class="field narrow">
+            <label for="bench-repeats">Repeat Runs</label>
+            <select id="bench-repeats">
+              <option value="1">1 Run</option>
+              <option value="3" selected>3 Runs (Avg)</option>
+              <option value="5">5 Runs (Stable)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" id="btn-benchmark">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 17l5-5 4 4 8-9"/><path d="M15 7h5v5"/></svg>
+            Start Stress Test
+          </button>
+        </div>
+      </div>
+      <div id="bench-result"></div>
+    </section>
+
+    <!-- ================= 6. HISTORY PAGE ================= -->
+    <section class="page-section" id="page-history">
+      <div class="section-header">
+        <div>
+          <h1>Saved Run History</h1>
+          <p>Persistent logs of past optimization queries and performance runs.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2>Run Archive</h2>
+          <div class="actions">
+            <button class="btn btn-ghost btn-sm btn-danger-text" id="btn-clear-history">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+              Flush History
+            </button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th class="num">Capacity</th>
+                <th class="num">Items</th>
+                <th class="num">Fractional</th>
+                <th class="num">Greedy (Whole)</th>
+                <th class="num">DP 0/1</th>
+                <th class="num">DP Advantage</th>
+                <th class="num">Greedy Latency</th>
+                <th class="num">DP Latency</th>
+              </tr>
+            </thead>
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
+        <div class="empty" id="history-empty" hidden>
+          <strong>No historical runs recorded.</strong>
+          <span>Navigate to the Compare tab and execute a comparison.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 7. THEORY PAGE ================= -->
+    <section class="page-section" id="page-theory">
+      <div class="section-header">
+        <div>
+          <h1>Mathematical Principles</h1>
+          <p>Formal definitions, recurrence relations, and algorithmic complexity.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head"><h2>Problem Formalization</h2></div>
+          <p>Given capacity <b>W</b> and <i>n</i> products with weight <b>w<sub>i</sub></b> and profit <b>p<sub>i</sub></b>, select binary indicators x<sub>i</sub> &isin; {0, 1} to maximize &sum; p<sub>i</sub>x<sub>i</sub> subject to &sum; w<sub>i</sub>x<sub>i</sub> &le; W.</p>
+          <ul class="plain">
+            <li><b>Fractional Knapsack:</b> x<sub>i</sub> &isin; [0, 1]. Solvable via greedy profit/weight density sorting.</li>
+            <li><b>0/1 Knapsack:</b> x<sub>i</sub> &isin; {0, 1}. NP-complete decision problem solved via Dynamic Programming.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Complexity Classification</h2></div>
+          <table class="table compact">
+            <thead><tr><th>Approach</th><th>Time</th><th>Space</th><th>Optimality</th></tr></thead>
+            <tbody>
+              <tr><td>Fractional Greedy</td><td>O(n log n)</td><td>O(n)</td><td>Optimal (Fractional)</td></tr>
+              <tr><td>Heuristic Greedy</td><td>O(n log n)</td><td>O(n)</td><td>Suboptimal (0/1)</td></tr>
+              <tr><td>Dynamic Programming</td><td>O(n &middot; W)</td><td>O(n &middot; W)</td><td>Optimal (0/1)</td></tr>
+            </tbody>
+          </table>
+          <p class="note">DP is <em>pseudo-polynomial</em> because its runtime depends on the numeric magnitude of W.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head"><h2>Greedy: Fractional Logic</h2></div>
+          <p>Greedy choice property: items with maximum profit per unit weight are prioritized first until capacity limits are reached.</p>
+<pre class="code">1. Calculate ratio r[i] = p[i] / w[i]
+2. Sort items descending by r[i]
+3. For item i:
+     If w[i] &lt;= remaining_capacity:
+         take full item
+     Else:
+         take (remaining_capacity / w[i])
+         break</pre>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Dynamic Programming: Bellman Relation</h2></div>
+          <p>Optimal substructure: optimum solution dp[i][c] utilizes solutions to subproblems involving i-1 items.</p>
+<pre class="code">dp[0][c] = 0  for all c &isin; [0, W]
+For i = 1 to n:
+  For c = 0 to W:
+    dp[i][c] = dp[i-1][c]
+    if w[i] &lt;= c:
+      dp[i][c] = max(dp[i][c], dp[i-1][c - w[i]] + p[i])
+return dp[n][W]</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 8. ABOUT PAGE ================= -->
+    <section class="page-section" id="page-about">
+      <div class="about-hero">
+        <h1>Architectural Rationale &amp; Mission</h1>
+        <p>StockKnap bridges classical Design &amp; Analysis of Algorithms (DAA) concepts with intuitive, production-grade warehouse inventory optimization systems.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>Why Knapsack in Inventory?</h3>
+          <p>Warehouses face physical volume, weight, and forklift limits. When supply exceeds holding capacity, managers must decide which items generate maximum ROI without exceeding thresholds.</p>
+        </div>
+        <div class="about-card">
+          <h3>The Dynamic Programming Advantage</h3>
+          <p>While intuitive human decisions rely on greedy heuristics ("take the most valuable items first"), whole-item constraints often leave empty space. DP uncovers hidden combinatorial synergies.</p>
+        </div>
+        <div class="about-card">
+          <h3>Design &amp; Technology Stack</h3>
+          <p>Built with Flask backend and a clean vanilla JavaScript frontend utilizing reactive glassmorphism components, SVG rendering, and zero heavy client-side framework bloat.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h2>
+          <div class="brand-icon" style="width:28px;height:28px;border-radius:7px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="16" height="16"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+          </div>
+          StockKnap
+        </h2>
+        <p>Intelligent inventory holding optimization powered by classical greedy heuristics and 0/1 Dynamic Programming algorithms.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#home">Home Dashboard</a></li>
+          <li><a href="#inventory">Inventory Catalog</a></li>
+          <li><a href="#optimize">Optimization Engine</a></li>
+          <li><a href="#compare">Comparative Matrix</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Algorithms</h4>
+        <ul>
+          <li><a href="#theory">Fractional Knapsack</a></li>
+          <li><a href="#theory">0/1 Knapsack DP</a></li>
+          <li><a href="#benchmark">Scalability Benchmarks</a></li>
+          <li><a href="#history">Run Logs</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Project</h4>
+        <ul>
+          <li><a href="#about">About Architecture</a></li>
+          <li><a href="https://github.com" target="_blank" rel="noreferrer">Source Code</a></li>
+          <li><a href="#theory">DAA Knapsack Reference</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>StockKnap &middot; Design &amp; Analysis of Algorithms (DAA) Laboratory Project</span>
+      <span>Emerald &amp; Mint Glassmorphism Edition</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ===================== EDIT DIALOG ===================== -->
+<dialog id="edit-dialog">
+  <form id="edit-form" method="dialog" autocomplete="off">
+    <h3>Edit Product Specifications</h3>
+    <input type="hidden" id="e-id">
+    <div class="field">
+      <label for="e-name">Product Name</label>
+      <input id="e-name" required maxlength="60">
+    </div>
+    <div class="field">
+      <label for="e-category">Category</label>
+      <input id="e-category" list="category-list" maxlength="30">
+    </div>
+    <div class="form-row">
+      <div class="field grow">
+        <label for="e-weight">Weight (kg)</label>
+        <input id="e-weight" type="number" min="1" step="1" required>
+      </div>
+      <div class="field grow">
+        <label for="e-profit">Profit (<span class="cur"></span>)</label>
+        <input id="e-profit" type="number" min="0.01" step="any" required>
+      </div>
+    </div>
+    <div class="dialog-actions">
+      <button class="btn btn-ghost" type="button" id="e-cancel">Cancel</button>
+      <button class="btn btn-primary" type="submit">Save Changes</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Notification Toasts -->
+<div id="toast-root" aria-live="polite"></div>
+
+<!-- Scripts -->
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
